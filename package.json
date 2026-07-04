@@ -1,0 +1,11 @@
+{
+  "name": "context-gate",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Compose and govern exactly the context — API operations and fields — your services expose to agents. Curate operations from OpenAPIs you search or upload into a governed Tyk API + MCP surface, with a generated Spectral ruleset for the exposed surface (PII, security, compliance).",
+  "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview" },
+  "license": "Apache-2.0",
+  "devDependencies": { "typescript": "^5.7.2", "vite": "^5.4.11" },
+  "dependencies": { "yaml": "^2.6.1" }
+}

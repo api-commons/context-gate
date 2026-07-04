@@ -1,0 +1,112 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Invoices API",
+    "version": "1.4.0",
+    "description": "A small sample API used to demonstrate governance coverage.",
+    "contact": { "name": "API Team", "email": "api@example.com" }
+  },
+  "servers": [{ "url": "https://api.example.com/v1" }],
+  "tags": [
+    { "name": "invoices", "description": "Invoice operations" },
+    { "name": "customers", "description": "Customer operations" }
+  ],
+  "paths": {
+    "/invoices": {
+      "get": {
+        "operationId": "listInvoices",
+        "summary": "List invoices",
+        "tags": ["invoices"],
+        "parameters": [
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["draft", "sent", "paid"] } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "format": "int32" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of invoices",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Invoice" } } } }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createInvoice",
+        "summary": "Create an invoice",
+        "tags": ["invoices"],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/InvoiceInput" } } }
+        },
+        "responses": {
+          "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Invoice" } } } },
+          "400": { "description": "Bad request" }
+        }
+      }
+    },
+    "/invoices/{invoiceId}": {
+      "parameters": [{ "name": "invoiceId", "in": "path", "required": true, "schema": { "type": "string" } }],
+      "get": {
+        "operationId": "getInvoice",
+        "summary": "Get an invoice",
+        "tags": ["invoices"],
+        "responses": {
+          "200": { "description": "The invoice", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Invoice" } } } },
+          "404": { "description": "Not found" }
+        }
+      }
+    },
+    "/customers": {
+      "get": {
+        "operationId": "listCustomers",
+        "summary": "List customers",
+        "tags": ["customers"],
+        "responses": {
+          "200": { "description": "Customers", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Customer" } } } } }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer" }
+    },
+    "schemas": {
+      "Invoice": {
+        "type": "object",
+        "required": ["id", "total"],
+        "properties": {
+          "id": { "type": "string" },
+          "total": { "type": "number", "format": "double" },
+          "currency": { "type": "string" },
+          "status": { "type": "string", "enum": ["draft", "sent", "paid"] },
+          "lineItems": { "type": "array", "items": { "$ref": "#/components/schemas/LineItem" } },
+          "customer": { "$ref": "#/components/schemas/Customer" }
+        }
+      },
+      "InvoiceInput": {
+        "type": "object",
+        "required": ["customerId", "lineItems"],
+        "properties": {
+          "customerId": { "type": "string" },
+          "lineItems": { "type": "array", "items": { "$ref": "#/components/schemas/LineItem" } }
+        }
+      },
+      "LineItem": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "quantity": { "type": "integer" },
+          "unitPrice": { "type": "number" }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string", "format": "email" }
+        }
+      }
+    }
+  },
+  "security": [{ "bearerAuth": [] }]
+}

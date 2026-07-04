@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Context Gate — compose and govern what your APIs expose to agents</title>
+    <meta name="description" content="Curate the exact operations and fields your services expose to agents, and emit a governed Tyk API + MCP surface plus a Spectral ruleset for it — with PII, security, and compliance checks on what reaches the agent. Consumer-centric API governance. Runs in your browser." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WNSPT4B4S8"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WNSPT4B4S8');</script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><strong>Context Gate</strong><span class="tag">contextgate.apicommons.org</span></div>
+      <nav>
+        <a href="#" id="nav-about" title="What this does">About</a>
+        <a href="https://apis.io" target="_blank" rel="noopener">APIs.io</a>
+        <a href="https://apicommons.org" target="_blank" rel="noopener">API Commons</a>
+        <a href="https://github.com/api-commons/context-gate" target="_blank" rel="noopener">GitHub</a>
+        <button id="engage-ae" class="engage-btn" type="button" title="Work with API Evangelist on agent governance">Get help</button>
+      </nav>
+    </header>
+
+    <div class="toolbar">
+      <span class="tb-label">Source</span>
+      <div class="seg" id="src-seg">
+        <button data-src="upload" class="is-active">Upload / paste</button>
+        <button data-src="apisio">APIs.io</button>
+        <button data-src="github">GitHub</button>
+      </div>
+      <input type="search" id="q" placeholder="Search APIs.io / GitHub…" hidden />
+      <input type="password" id="gh-token" placeholder="GitHub token" hidden />
+      <button class="ghost-btn" id="search-btn" type="button" hidden>Search</button>
+      <input type="file" id="file" accept=".json,.yaml,.yml" hidden />
+      <button class="ghost-btn" id="upload-btn" type="button">Upload file</button>
+      <button class="ghost-btn" id="paste-btn" type="button">Paste</button>
+      <button class="ghost-btn" id="sample-btn" type="button">Load sample</button>
+      <div class="counts" id="status"></div>
+    </div>
+
+    <div class="cfg-bar">
+      <label>Gate name<input type="text" id="cfg-name" value="Invoices for Agents" /></label>
+      <label>Upstream URL<input type="text" id="cfg-upstream" value="https://api.example.com/v1" /></label>
+      <label>Listen path<input type="text" id="cfg-listen" value="/invoices-agent/" /></label>
+      <label>Auth<select id="cfg-auth"><option value="apiKey">API key</option><option value="jwt">JWT</option><option value="none">Keyless</option></select></label>
+      <label class="chk"><input type="checkbox" id="cfg-ratelimit" checked /> Rate-limit writes</label>
+    </div>
+
+    <details class="drawer" id="paste-drawer" hidden>
+      <summary>Paste an OpenAPI (JSON or YAML)</summary>
+      <div class="io-grid"><div class="io" style="grid-column:1/-1">
+        <textarea id="paste-text" spellcheck="false" placeholder="Paste an OpenAPI document, then Add…"></textarea>
+        <div style="margin-top:.5rem"><button class="measure-btn" id="paste-add" type="button">Add API</button></div>
+      </div></div>
+    </details>
+
+    <main class="split">
+      <section class="pane left" id="left">
+        <h3>Compose the surface</h3>
+        <div id="results" class="results" hidden></div>
+        <div id="surface"><div class="empty-note">Load an API (upload, paste, or search APIs.io / GitHub) to choose the operations and fields you expose to agents.</div></div>
+      </section>
+      <section class="pane" id="right">
+        <div class="out-tabs">
+          <button class="out-tab is-active" data-out="tyk">Tyk OpenAPI</button>
+          <button class="out-tab" data-out="mcp">MCP tools</button>
+          <button class="out-tab" data-out="ruleset">Spectral ruleset</button>
+        </div>
+        <div class="gate-stats" id="gate-stats"></div>
+        <div class="out-actions">
+          <button class="measure-btn" id="dl-out" type="button">Download</button>
+          <button class="ghost-btn" id="copy-out" type="button">Copy</button>
+          <span class="muted small" id="out-hint"></span>
+        </div>
+        <pre class="output" id="output">Nothing selected yet.</pre>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
