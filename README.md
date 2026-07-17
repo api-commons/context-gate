@@ -6,12 +6,6 @@ Context Gate governs the other direction: of everything your APIs can do, what s
 **agent** actually be allowed to consume? No backend, no accounts; runs in your browser.
 Live at **[contextgate.apicommons.org](https://contextgate.apicommons.org)**.
 
-Part of the [API Commons](https://apicommons.org/tools/) tools, alongside
-[API Validator](https://github.com/api-commons/api-validator),
-[Agent Rule Export](https://github.com/api-commons/governance-agent-export),
-[Governance Coverage](https://github.com/api-commons/governance-coverage), and
-[API Certification](https://github.com/api-commons/governance-certification).
-
 ## What it does
 
 1. **Source your APIs** — search [APIs.io](https://apis.io) or GitHub code (with your own
@@ -59,6 +53,17 @@ Pure client-side. The Tyk OAS shape follows Tyk's `x-tyk-api-gateway` OpenAPI ex
 
 Everything runs client-side. Your API descriptions and your GitHub token never leave the
 page — search and file fetches go directly from your browser to APIs.io / GitHub.
+
+## Part of API Commons
+
+An open, browser-first tool from **[API Commons](https://apicommons.org)** — free, no backend, your data stays in your browser. Browse the full set at **[apicommons.org/tools](https://apicommons.org/tools/)**.
+
+**Related tools**
+- [API Validator](https://validator.apicommons.org) — lint the generated Tyk OAS against the generated ruleset
+- [Agent Rule Export](https://agents.apicommons.org) — hand the generated rules to the agent as agent-native artifacts
+- [API Governance MCP](https://github.com/api-commons/api-governance-mcp) — Spectral governance as an MCP server
+- [Toolsmith](https://toolsmith.apicommons.org) — forge MCP tools + Agent Skills from OpenAPI
+- [Governance Coverage](https://coverage.apicommons.org) — how much of your API your rules actually check
 
 ---
 
